@@ -12,6 +12,9 @@ const Product = sequelize.define('Product', {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+  tags: {
+    type: DataTypes.TEXT,
+  },
   description: {
     type: DataTypes.TEXT,
   },

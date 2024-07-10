@@ -1,11 +1,10 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import express from 'express';
-import mainRouter from './routes/main.routes';
-import sequelize from './database';
-import Product from './database/models/Product';
 import cors from 'cors';
+import express from 'express';
+import sequelize from './database';
+import mainRouter from './routes/main.routes';
 
 const app = express();
 const PORT = process.env.PORT;
@@ -17,6 +16,5 @@ app.use(mainRouter);
 
 app.listen(PORT, async () => {
   sequelize;
-  Product;
   console.log(`--\n\nServer listening on PORT ${PORT}\n\n--`);
 });
