@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteProduct = exports.editProduct = exports.addProduct = exports.getProduct = exports.getProducts = exports.ping = void 0;
+exports.deleteProduct = exports.editProduct = exports.bulkAddProduct = exports.addProduct = exports.getProduct = exports.getProducts = exports.ping = void 0;
 const Product_1 = __importDefault(require("../database/models/Product"));
 const ping = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.json('hello!');
@@ -51,6 +51,17 @@ const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.addProduct = addProduct;
+const bulkAddProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const products = req.body.products;
+        const newProducts = yield Product_1.default.bulkCreate(products);
+        return res.status(201).json(newProducts);
+    }
+    catch (error) {
+        return res.status(500).json({ error });
+    }
+});
+exports.bulkAddProduct = bulkAddProduct;
 const editProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {

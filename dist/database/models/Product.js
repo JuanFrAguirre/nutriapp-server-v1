@@ -16,7 +16,7 @@ const Product = __1.default.define('Product', {
         type: sequelize_1.DataTypes.TEXT,
         allowNull: false,
     },
-    description: {
+    tags: {
         type: sequelize_1.DataTypes.TEXT,
     },
     presentationSize: {
@@ -42,5 +42,7 @@ const Product = __1.default.define('Product', {
         type: sequelize_1.DataTypes.FLOAT,
         allowNull: false,
     },
+}, {
+    timestamps: false,
 });
 exports.default = Product;
