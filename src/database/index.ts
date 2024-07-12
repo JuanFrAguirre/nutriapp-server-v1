@@ -8,13 +8,15 @@ const sequelize = new Sequelize({
   dialect: 'mysql',
 });
 
-try {
-  sequelize.sync({
-    alter: process.env.MODE === 'alter' || false,
-    force: process.env.MODE === 'force' || false,
-  });
-} catch (error) {
-  console.error('Unable to connect to the database:', error);
-}
+(async () => {
+  try {
+    await sequelize.sync({
+      alter: process.env.MODE === 'alter' || false,
+      force: process.env.MODE === 'force' || false,
+    });
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+})();
 
 export default sequelize;
