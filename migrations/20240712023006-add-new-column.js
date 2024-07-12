@@ -8,7 +8,7 @@ module.exports = {
     });
   },
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn('products', 'tags');
-  },
+  // down: async (queryInterface, Sequelize) => {
+  //   await queryInterface.removeColumn('products', 'tags');
+  // },
 };
