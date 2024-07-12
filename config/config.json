@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "Juanfies2?",
+    "database": "nutriapp",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "nutriapp_dev1",
+    "password": "eppCs&3o@GL!KPK9",
+    "database": "nutriapp_dev",
+    "host": "mysql-nutriapp.alwaysdata.net",
+    "dialect": "mysql"
+  }
+}

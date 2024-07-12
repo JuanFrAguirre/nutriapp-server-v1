@@ -28,6 +28,15 @@ export const getProduct = async (req: Request, res: Response) => {
 };
 
 export const addProduct = async (req: Request, res: Response) => {
+  if (req.body.bulk) {
+    try {
+      const products = req.body.products;
+      const newProducts = await Product.bulkCreate(products);
+      return res.status(201).json(newProducts);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   try {
     const newProduct = await Product.create(req.body);
     return res.status(201).json(newProduct);
