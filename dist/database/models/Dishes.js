@@ -25,6 +25,22 @@ Dish.init({
     image: {
         type: sequelize_1.DataTypes.TEXT,
     },
+    calories: {
+        type: sequelize_1.DataTypes.FLOAT,
+        defaultValue: 0,
+    },
+    proteins: {
+        type: sequelize_1.DataTypes.FLOAT,
+        defaultValue: 0,
+    },
+    fats: {
+        type: sequelize_1.DataTypes.FLOAT,
+        defaultValue: 0,
+    },
+    carbohydrates: {
+        type: sequelize_1.DataTypes.FLOAT,
+        defaultValue: 0,
+    },
 }, {
     sequelize: __1.default,
     timestamps: false,
