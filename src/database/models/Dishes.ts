@@ -1,37 +1,38 @@
-// models/Product.ts
+// models/Dish.ts
 import { Model, DataTypes, Optional } from 'sequelize';
 import sequelize from '..';
+import Product from './Product';
 
-interface ProductAttributes {
+interface DishAttributes {
   id: string;
   title: string;
   tags?: string;
-  presentationSize: number;
   image?: string;
-  calories: number;
-  proteins: number;
-  fats: number;
-  carbohydrates: number;
+  calories?: number;
+  proteins?: number;
+  fats?: number;
+  carbohydrates?: number;
 }
 
-interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> {}
+interface DishCreationAttributes extends Optional<DishAttributes, 'id'> {}
 
-class Product
-  extends Model<ProductAttributes, ProductCreationAttributes>
-  implements ProductAttributes
+class Dish
+  extends Model<DishAttributes, DishCreationAttributes>
+  implements DishAttributes
 {
   public id!: string;
   public title!: string;
   public tags?: string;
-  public presentationSize!: number;
   public image?: string;
-  public calories!: number;
-  public proteins!: number;
-  public fats!: number;
-  public carbohydrates!: number;
+  public calories?: number;
+  public proteins?: number;
+  public fats?: number;
+  public carbohydrates?: number;
+
+  public addProduct!: (product: Product) => Promise<void>;
 }
 
-Product.init(
+Dish.init(
   {
     id: {
       type: DataTypes.UUID,
@@ -46,28 +47,24 @@ Product.init(
     tags: {
       type: DataTypes.TEXT,
     },
-    presentationSize: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
-    },
     image: {
       type: DataTypes.TEXT,
     },
     calories: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      defaultValue: 0,
     },
     proteins: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      defaultValue: 0,
     },
     fats: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      defaultValue: 0,
     },
     carbohydrates: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      defaultValue: 0,
     },
   },
   {
@@ -76,4 +73,4 @@ Product.init(
   },
 );
 
-export default Product;
+export default Dish;

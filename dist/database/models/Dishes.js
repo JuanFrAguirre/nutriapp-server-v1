@@ -3,12 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// models/Product.ts
+// models/Dish.ts
 const sequelize_1 = require("sequelize");
 const __1 = __importDefault(require(".."));
-class Product extends sequelize_1.Model {
+class Dish extends sequelize_1.Model {
 }
-Product.init({
+Dish.init({
     id: {
         type: sequelize_1.DataTypes.UUID,
         defaultValue: sequelize_1.DataTypes.UUIDV4,
@@ -22,31 +22,27 @@ Product.init({
     tags: {
         type: sequelize_1.DataTypes.TEXT,
     },
-    presentationSize: {
-        type: sequelize_1.DataTypes.FLOAT,
-        allowNull: false,
-    },
     image: {
         type: sequelize_1.DataTypes.TEXT,
     },
     calories: {
         type: sequelize_1.DataTypes.FLOAT,
-        allowNull: false,
+        defaultValue: 0,
     },
     proteins: {
         type: sequelize_1.DataTypes.FLOAT,
-        allowNull: false,
+        defaultValue: 0,
     },
     fats: {
         type: sequelize_1.DataTypes.FLOAT,
-        allowNull: false,
+        defaultValue: 0,
     },
     carbohydrates: {
         type: sequelize_1.DataTypes.FLOAT,
-        allowNull: false,
+        defaultValue: 0,
     },
 }, {
     sequelize: __1.default,
     timestamps: false,
 });
-exports.default = Product;
+exports.default = Dish;

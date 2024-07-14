@@ -18,12 +18,16 @@ const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const database_1 = __importDefault(require("./database"));
 const main_routes_1 = __importDefault(require("./routes/main.routes"));
+const products_routes_1 = __importDefault(require("./routes/products.routes"));
+const dishes_routes_1 = __importDefault(require("./routes/dishes.routes"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT;
 app.use((0, cors_1.default)({ origin: '*' }));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
-app.use(main_routes_1.default);
+app.use('/', main_routes_1.default);
+app.use('/products', products_routes_1.default);
+app.use('/dishes', dishes_routes_1.default);
 app.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     database_1.default;
     console.log(`--\n\nServer listening on PORT ${PORT}\n\n--`);
