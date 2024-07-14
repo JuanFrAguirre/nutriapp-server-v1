@@ -29,7 +29,9 @@ exports.getDishes = getDishes;
 const getDish = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        const dish = yield Dish.findByPk(id, { include: Product });
+        const dish = yield Dish.findByPk(id, {
+            include: { model: Product, as: 'products' },
+        });
         if (!dish)
             return res.json(404);
         return res.json(dish);
@@ -61,7 +63,9 @@ exports.addDish = addDish;
 const editDish = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        const dish = yield Dish.findByPk(id, { include: Product });
+        const dish = yield Dish.findByPk(id, {
+            include: { model: Product, as: 'products' },
+        });
         if (!dish)
             return res.json(404);
         yield Dish.update(req.body, { where: { id } });

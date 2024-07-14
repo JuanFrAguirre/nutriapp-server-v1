@@ -16,7 +16,9 @@ export const getDishes = async (req: Request, res: Response) => {
 export const getDish = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const dish = await Dish.findByPk(id, { include: Product });
+    const dish = await Dish.findByPk(id, {
+      include: { model: Product, as: 'products' },
+    });
     if (!dish) return res.json(404);
     return res.json(dish);
   } catch (error) {
@@ -44,7 +46,9 @@ export const addDish = async (req: Request, res: Response) => {
 export const editDish = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const dish = await Dish.findByPk(id, { include: Product });
+    const dish = await Dish.findByPk(id, {
+      include: { model: Product, as: 'products' },
+    });
     if (!dish) return res.json(404);
 
     await Dish.update(req.body, { where: { id } });
