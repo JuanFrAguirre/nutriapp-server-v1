@@ -50,22 +50,6 @@ Dish.init(
     image: {
       type: DataTypes.TEXT,
     },
-    calories: {
-      type: DataTypes.FLOAT,
-      defaultValue: 0,
-    },
-    proteins: {
-      type: DataTypes.FLOAT,
-      defaultValue: 0,
-    },
-    fats: {
-      type: DataTypes.FLOAT,
-      defaultValue: 0,
-    },
-    carbohydrates: {
-      type: DataTypes.FLOAT,
-      defaultValue: 0,
-    },
   },
   {
     sequelize,
