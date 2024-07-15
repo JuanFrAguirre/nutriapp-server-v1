@@ -53,14 +53,19 @@ const addDish = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             fats: (0, getNutritionalValue_1.getNutriValue)(products, 'fats'),
             carbohydrates: (0, getNutritionalValue_1.getNutriValue)(products, 'carbohydrates'),
         });
-        products.forEach((product) => __awaiter(void 0, void 0, void 0, function* () {
+        yield Promise.all(products.map((product) => __awaiter(void 0, void 0, void 0, function* () {
             yield newDish.addProduct(product);
-        }));
+        })));
         return res.json(newDish);
     }
     catch (error) {
         console.error(error);
-        return res.status(500).json({ error });
+        if (error instanceof Error) {
+            return res.status(500).json({ error: error.message });
+        }
+        else {
+            return res.status(500).json({ error: 'An unexpected error occurred' });
+        }
     }
 });
 exports.addDish = addDish;

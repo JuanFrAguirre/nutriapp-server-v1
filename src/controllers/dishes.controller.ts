@@ -38,13 +38,19 @@ export const addDish = async (req: Request, res: Response) => {
       fats: getNutriValue(products, 'fats'),
       carbohydrates: getNutriValue(products, 'carbohydrates'),
     });
-    products.forEach(async (product: any) => {
-      await newDish.addProduct(product);
-    });
+    await Promise.all(
+      products.map(async (product: any) => {
+        await newDish.addProduct(product);
+      }),
+    );
     return res.json(newDish);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error });
+    if (error instanceof Error) {
+      return res.status(500).json({ error: error.message });
+    } else {
+      return res.status(500).json({ error: 'An unexpected error occurred' });
+    }
   }
 };
 
