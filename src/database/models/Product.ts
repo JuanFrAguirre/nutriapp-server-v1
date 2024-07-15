@@ -2,7 +2,7 @@
 import { Model, DataTypes, Optional } from 'sequelize';
 import sequelize from '..';
 
-interface ProductAttributes {
+export interface ProductAttributes {
   id: string;
   title: string;
   tags?: string;

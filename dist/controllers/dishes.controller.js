@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteDish = exports.editDish = exports.addDish = exports.getDish = exports.getDishes = void 0;
 const models_1 = __importDefault(require("../database/models"));
+const getNutritionalValue_1 = require("../utils/getNutritionalValue");
 const { Dish, Product } = models_1.default;
 const getDishes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -45,11 +46,14 @@ exports.getDish = getDish;
 const addDish = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { title, products } = req.body;
-        const newDish = yield Dish.create({ title });
-        products.forEach((productId) => __awaiter(void 0, void 0, void 0, function* () {
-            const product = yield Product.findByPk(productId);
-            if (!product)
-                return;
+        const newDish = yield Dish.create({
+            title,
+            calories: (0, getNutritionalValue_1.getNutriValue)(products, 'calories'),
+            proteins: (0, getNutritionalValue_1.getNutriValue)(products, 'proteins'),
+            fats: (0, getNutritionalValue_1.getNutriValue)(products, 'fats'),
+            carbohydrates: (0, getNutritionalValue_1.getNutriValue)(products, 'carbohydrates'),
+        });
+        products.forEach((product) => __awaiter(void 0, void 0, void 0, function* () {
             yield newDish.addProduct(product);
         }));
         return res.json(newDish);

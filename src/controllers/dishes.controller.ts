@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import models from '../database/models';
+import { getNutriValue } from '../utils/getNutritionalValue';
 
 const { Dish, Product } = models;
 
@@ -30,10 +31,14 @@ export const getDish = async (req: Request, res: Response) => {
 export const addDish = async (req: Request, res: Response) => {
   try {
     const { title, products } = req.body;
-    const newDish = await Dish.create({ title });
-    products.forEach(async (productId: string) => {
-      const product = await Product.findByPk(productId);
-      if (!product) return;
+    const newDish = await Dish.create({
+      title,
+      calories: getNutriValue(products, 'calories'),
+      proteins: getNutriValue(products, 'proteins'),
+      fats: getNutriValue(products, 'fats'),
+      carbohydrates: getNutriValue(products, 'carbohydrates'),
+    });
+    products.forEach(async (product: any) => {
       await newDish.addProduct(product);
     });
     return res.json(newDish);
