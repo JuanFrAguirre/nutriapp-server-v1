@@ -40,7 +40,9 @@ export const addDish = async (req: Request, res: Response) => {
     });
     await Promise.all(
       products.map(async (product: any) => {
-        await newDish.addProduct(product);
+        const fullProduct = await Product.findByPk(product.id);
+        if (!fullProduct) return;
+        await newDish.addProduct(fullProduct);
       }),
     );
     return res.json(newDish);
