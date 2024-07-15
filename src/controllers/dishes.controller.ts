@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import models from '../database/models';
-import { getNutriValue } from '../utils/getNutritionalValue';
+// import { getNutriValue } from '../utils/getNutritionalValue';
 
 const { Dish, Product } = models;
 
@@ -28,31 +28,47 @@ export const getDish = async (req: Request, res: Response) => {
   }
 };
 
+// export const addDish = async (req: Request, res: Response) => {
+//   try {
+//     const { title, products } = req.body;
+//     const newDish = await Dish.create({
+//       title,
+//       calories: getNutriValue(products, 'calories'),
+//       proteins: getNutriValue(products, 'proteins'),
+//       fats: getNutriValue(products, 'fats'),
+//       carbohydrates: getNutriValue(products, 'carbohydrates'),
+//     });
+//     await Promise.all(
+//       products.map(async (product: any) => {
+//         const fullProduct = await Product.findByPk(product.id);
+//         if (!fullProduct) return;
+//         await newDish.addProduct(fullProduct);
+//       }),
+//     );
+//     return res.json(newDish);
+//   } catch (error) {
+//     console.error(error);
+//     if (error instanceof Error) {
+//       return res.status(500).json({ error: error.message });
+//     } else {
+//       return res.status(500).json({ error: 'An unexpected error occurred' });
+//     }
+//   }
+// };
+
 export const addDish = async (req: Request, res: Response) => {
   try {
     const { title, products } = req.body;
-    const newDish = await Dish.create({
-      title,
-      calories: getNutriValue(products, 'calories'),
-      proteins: getNutriValue(products, 'proteins'),
-      fats: getNutriValue(products, 'fats'),
-      carbohydrates: getNutriValue(products, 'carbohydrates'),
+    const newDish = await Dish.create({ title });
+    products.forEach(async (productId: string) => {
+      const product = await Product.findByPk(productId);
+      if (!product) return;
+      await newDish.addProduct(product);
     });
-    await Promise.all(
-      products.map(async (product: any) => {
-        const fullProduct = await Product.findByPk(product.id);
-        if (!fullProduct) return;
-        await newDish.addProduct(fullProduct);
-      }),
-    );
     return res.json(newDish);
   } catch (error) {
     console.error(error);
-    if (error instanceof Error) {
-      return res.status(500).json({ error: error.message });
-    } else {
-      return res.status(500).json({ error: 'An unexpected error occurred' });
-    }
+    return res.status(500).json({ error });
   }
 };
 
